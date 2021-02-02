@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+<property name="logdir" value="${jboss.server.log.dir:-./logs}" />
+
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>%-5level %logger{36} - %msg%n</pattern>
+		</encoder>
+	</appender>
+
+	<appender name="galvAddWeb"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<encoder>
+			<pattern>%d %-5level %logger{36} | %msg%n</pattern>
+		</encoder>
+		<file>${logdir}/galvAddWeb.log</file>
+		<rollingPolicy
+			class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+			<fileNamePattern>${logdir}/galvAddWeb.log-%d{yyyy-MM-dd}.%i.gz</fileNamePattern>
+			<maxFileSize>100MB</maxFileSize> 
+			<maxHistory>5</maxHistory>
+		</rollingPolicy>
+	</appender>
+	
+	
+	
+	<logger name="com.myapp" level="error">
+		<appender-ref ref="galvAdd" />
+		<appender-ref ref="STDOUT" />
+	</logger>
+	
+	
+	<!-- By default, the level of the root level is set to DEBUG -->
+	<root level="error">
+		 <appender-ref ref="STDOUT" />
+		
+	</root>
+	
+	
+</configuration>
